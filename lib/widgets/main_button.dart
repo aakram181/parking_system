@@ -7,8 +7,8 @@ class mainButton extends StatelessWidget {
   final Function() onPressed;
 
   mainButton({required this.text,required this.onPressed});
-  final button_width = 150.sp;
-  final button_height = 50.sp;
+  final button_width = 150.w;
+  final button_height = 50.h;
 
   @override
   Widget build(BuildContext context) {
