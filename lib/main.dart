@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:parking_system/screens/map_page.dart';
 import 'screens/login_screen.dart';
 import 'screens/signup_screen.dart';
 import 'screens/signup_payment.dart';
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         theme:  ThemeData(scaffoldBackgroundColor: const Color(0xFF08051F)),
 
-        home: LoginScreen(),
+        home: MapPage(),
       ),
     );
   }
