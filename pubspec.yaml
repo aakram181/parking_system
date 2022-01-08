@@ -38,6 +38,7 @@ dependencies:
   firebase_core: ^1.10.6
   firebase_auth: ^3.3.4
   cloud_firestore: ^3.1.5
+  carousel_slider: ^4.0.0
 
 dev_dependencies:
   flutter_test:
@@ -66,6 +67,10 @@ flutter:
     - images/parking_img.png
     - images/car.png
     - images/mapbg.jpg
+    - images/newcairo.png
+    - images/downtown.jpg
+    - images/maadi.jpg
+    - images/opera_square.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

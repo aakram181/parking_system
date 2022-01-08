@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../entities/User.dart';
+import '../entities/user.dart';
 
 class UserRepo {
   User user;

@@ -5,6 +5,13 @@ int selectedCardID = 0;
 
 enum ParkState { empty, occupied, reserved, unknown }
 
+TextStyle kSelectedTextStyle = TextStyle(
+  fontFamily: 'Roboto',
+  fontSize: 40.0.sp,
+  fontWeight: FontWeight.w700,
+  color: Colors.green,
+);
+
 TextStyle kButtonTextStyle = TextStyle(
     fontFamily: 'Roboto',
     fontSize: 25.0.sp,
@@ -18,17 +25,12 @@ TextStyle kTitleTextStyle = TextStyle(
   color: Colors.white,
 );
 
-TextStyle kSubTitleTextStyle = TextStyle(
+TextStyle kSubTitleTextStyle =TextStyle(
   fontFamily: 'Cairo',
   fontSize: 22.0.sp,
   color: Colors.white,
 );
 
-TextStyle kSelectedTextStyle = TextStyle(
-  fontFamily: 'Roboto',
-  fontSize: 40.0.sp,
-  fontWeight: FontWeight.w700,
-  color: Colors.green,
-);
 
 Color kButtonColor = Color(0xFF137EA0);
+

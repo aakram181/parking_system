@@ -5,62 +5,75 @@ import 'package:parking_system/screens/signup_screen.dart';
 import 'package:parking_system/utils/constants.dart';
 import '../widgets/textbox.dart';
 import '../widgets/main_button.dart';
+import '../utils/validators.dart';
 class LoginScreen extends StatelessWidget {
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-              Text(
-                'Smart Parking',
-                style: kTitleTextStyle,
-              ),
-              Image.asset('images/parking_img.png'),
+        child: SafeArea(
+          child: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Smart Parking',
+                      style: kTitleTextStyle,
+                    ),
 
-              TextBox(labelText : 'Username*',icon: Icons.account_circle_outlined),
-                  SizedBox(
-                    height:20.0.h,
-                  ),
-              TextBox(labelText: 'Password*', icon: Icons.password, obscureText: true,),
+                    Image.asset('images/parking_img.png'),
 
-              SizedBox(
-                    height:20.0.h,
-                  ),
+                    TextBox(
+                        labelText: 'Username*',
+                        icon: Icons.account_circle_outlined,),
+                    SizedBox(
+                      height: 20.0.h,
+                    ),
 
-              mainButton(text: 'Log in', onPressed: (){},),
+                    TextBox(
+                      labelText: 'Password*',
+                      icon: Icons.password,
+                      obscureText: true,
+                    ),
+                    SizedBox(
+                      height: 20.0.h,
+                    ),
 
-              SizedBox(
-                    height:20.0.h,
-                  ),
+                    mainButton(
+                      text: 'Log in',
+                      onPressed: () {},
+                    ),
 
-              Text.rich(
-                      TextSpan(
-                          text: 'Not registered yet? ',
-                  style: kSubTitleTextStyle,
-                      children: [
-                        TextSpan(text: 'Register',
-                        recognizer: TapGestureRecognizer()..onTap = () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context){
-                            return SignupScreen();
-                          }));
-                            },
-                        style: TextStyle(
-                          decoration: TextDecoration.underline,
-                        ))
-                      ]))
-            ]),
+                    SizedBox(
+                      height: 20.0.h,
+                    ),
+                    Text.rich(TextSpan(
+                        text: 'Not registered yet? ',
+                        style: kSubTitleTextStyle,
+                        children: [
+                          TextSpan(
+                              text: 'Register',
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) {
+                                    return SignupScreen();
+                                  }));
+                                },
+                              style: TextStyle(
+                                decoration: TextDecoration.underline,
+                              ))
+                        ]))
+                  ]),
+            ),
           ),
         ),
       ),
     );
   }
 }
-
-
-
-

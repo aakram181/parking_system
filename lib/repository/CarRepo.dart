@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:parking_system/entities/Car.dart';
+import 'package:parking_system/entities/car.dart';
 
 class CarRepo {
   Car car;

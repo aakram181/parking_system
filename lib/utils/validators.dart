@@ -1,37 +1,71 @@
 import "dart:core";
 
 class Validator {
-  String? validateEmail(value) {
-    String pattern = r'^[a-zA-Z0-9.]+@([a-ZA-Z0-9]+\.+[a-zA-Z]+';
-    RegExp emailRegEx = RegExp(pattern);
-    if (!emailRegEx.hasMatch(value)) {
-      return 'Please enter a valid email address';
+  Validator._();
+  static String? validateUsername(String? value) {
+    if (value!.length < 2) {
+      return 'Please enter a valid username';
     } else {
-      return '';
+      return null;
     }
   }
 
-  String? validateLicensePlate(String value) {
+  static String? validateEmail(String? value) {
+    String pattern = r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
+    RegExp emailRegEx = RegExp(pattern);
+    if (!emailRegEx.hasMatch(value!)) {
+      return 'Please enter a valid email address';
+    } else {
+      return null;
+    }
+  }
+
+  static String? validateLicensePlate(String? value) {
     String pattern =
         r'^[0-9]{3,4}( )[\u0600-\u06FF]{1}( )[\u0600-\u06FF]{1}( )[\u0600-\u06FF]{0,1}';
     RegExp lpRegEx = RegExp(pattern);
-    if (!lpRegEx.hasMatch(value)) {
-      return "Invalid license plate";
+    if (!lpRegEx.hasMatch(value!)) {
+      return "Please enter a valid license plate";
     } else {
-      return '';
+      return null;
     }
   }
 
-  String? validateCreditCard(String value) {
+  static String? validateCreditCard(String? value) {
     String visaCard = r'^4[0-9]{12}(?:[0-9]{3})?$';
-    String masterCard =
-        r'^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$';
+    String masterCard = r'^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$';
     RegExp vCard = RegExp(visaCard);
     RegExp mCard = RegExp(masterCard);
-    if (!(vCard.hasMatch(value) || mCard.hasMatch(value))) {
+    if (!(vCard.hasMatch(value!) || mCard.hasMatch(value))) {
       return "Invalid card number";
     } else {
-      return '';
+      return null;
     }
   }
+
+  static String? validatePassword(String? value){
+
+  String password = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+  /*
+  r'^
+  (?=.*[A-Z])       // should contain at least one upper case
+  (?=.*[a-z])       // should contain at least one lower case
+  (?=.*?[0-9])      // should contain at least one digit
+  (?=.*?[!@#\$&*~]) // should contain at least one Special character
+  .{8,}             // Must be at least 8 characters in length
+$*/
+  RegExp pwregex = RegExp(password);
+
+  if(!pwregex.hasMatch(value!)){
+    return 'Please enter a valid password';
+  }
+  else{
+    return null;
+  }
+
+
+  }
+
+
+
 }

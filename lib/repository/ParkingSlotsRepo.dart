@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:parking_system/entities/ParkingSlots.dart';
+import 'package:parking_system/entities/parking_slots.dart';
 
 class ParkingSlotsRepo {
   ParkingSlotsRepo();
