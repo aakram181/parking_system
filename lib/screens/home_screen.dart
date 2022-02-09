@@ -27,9 +27,6 @@ class _HomeScreenState extends State<HomeScreen> {
     "Opera square",
   ];
 
-
-
-
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -43,15 +40,19 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
+
         children: [
-          SizedBox(height: 80),
-          Center(
-            child: Text(
-              'Choose Your Destination',
-              style: kTitleTextStyle,
-          )),
+          SizedBox(height: 80.0.h),
+          Container(
+            padding: EdgeInsets.only(left: 20.0.w,),
+            child: Center(
+              child: Text(
+                'Choose Your Destination',
+                style: kTitleTextStyle,
+            )),
+          ),
           SizedBox(
-            height: 50,
+            height: 10.h,
           ),
           Expanded(
             child: Container(
