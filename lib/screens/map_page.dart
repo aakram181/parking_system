@@ -1,10 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:parking_system/entities/parking_slots.dart';
+import 'package:parking_system/repository/parkingslots_repo.dart';
+import 'package:parking_system/utils/constants.dart';
 import 'package:parking_system/widgets/main_button.dart';
 import 'package:parking_system/widgets/parking_card.dart';
-import 'package:parking_system/utils/constants.dart';
-
-
 
 class MapPage extends StatefulWidget {
   const MapPage({Key? key}) : super(key: key);
@@ -13,23 +12,25 @@ class MapPage extends StatefulWidget {
   _MapPageState createState() => _MapPageState();
 }
 
-class _MapPageState extends State<MapPage> {
+Future<Map<String, ParkState>> getMap(
+    Future<List<ParkingSlots>> parkMap) async {
+  Map<String, ParkState> map = {};
 
+  await parkMap.then((value) => {
+        for (var slot in value) {map[slot.pID] = slot.currentState}
+      });
+  return map;
+}
+
+class _MapPageState extends State<MapPage> {
   @override
   Widget build(BuildContext context) {
+    ParkingSlotsRepo pp = ParkingSlotsRepo();
+    var plist = pp.parkingMap();
 
-    var parkingMap = {
-      1: ParkState.empty,
-      2: ParkState.occupied,
-      3: ParkState.occupied,
-      4: ParkState.empty,
-      5: ParkState.occupied,
-      6: ParkState.empty,
-      7: ParkState.occupied,
-      8: ParkState.occupied,
-    };
+    Map<String, ParkState>? parkingMap = {};
 
-    void setSelectedIndex(int id) {
+    void setSelectedIndex(String id) {
       setState(() {
         selectedCardID = id;
         print(selectedCardID);
@@ -37,7 +38,6 @@ class _MapPageState extends State<MapPage> {
     }
 
     return Scaffold(
-
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -64,76 +64,109 @@ class _MapPageState extends State<MapPage> {
                       )
                     ],
                   ),
-                  Text('Tap on an empty spot to reserve',style: kSubTitleTextStyle,),
+                  Text(
+                    'Tap on an empty spot to reserve',
+                    style: kSubTitleTextStyle,
+                  ),
                 ],
-
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(30.0),
               child: Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     image: DecorationImage(
                   image: AssetImage('images/mapbg.jpg'),
                   fit: BoxFit.fill,
                 )),
-                child: GridView.count(
-                  padding: EdgeInsets.zero,
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  mainAxisSpacing: 0,
-                  crossAxisSpacing: 110,
-                  crossAxisCount: 2,
-                  children: [
-                    ParkingCard(
-                      name: '1A',
-                      parkState:parkingMap[1]!,
-                      id: 1,
-                      onPressed: () => setSelectedIndex(1),
-                    ),
-                    ParkingCard(
-                        name: '2A',
-                        parkState: parkingMap[2]!,
-                        id: 2,
-                        onPressed: () => setSelectedIndex(2)),
-                    ParkingCard(
-                        name: '1B',
-                        parkState: parkingMap[3]!,
-                        id: 3,
-                        onPressed: () => setSelectedIndex(3)),
-                    ParkingCard(
-                        name: '2B',
-                        parkState: parkingMap[4]!,
-                        id: 4,
-                        onPressed: () => setSelectedIndex(4)),
-                    ParkingCard(
-                        name: '1C',
-                        parkState: parkingMap[5]!,
-                        id: 5,
-                        onPressed: () => setSelectedIndex(5)),
-                    ParkingCard(
-                        name: '2C',
-                        parkState: parkingMap[6]!,
-                        id: 6,
-                        onPressed: () => setSelectedIndex(6)),
-                    ParkingCard(
-                        name: '1D',
-                        parkState: parkingMap[7]!,
-                        id: 7,
-                        onPressed: () => setSelectedIndex(7)),
-                    ParkingCard(
-                        name: '2D',
-                        parkState: parkingMap[8]!,
-                        id: 8,
-                        onPressed: () => setSelectedIndex(8))
-                  ],
-                ),
+                child: FutureBuilder<Map<String, ParkState>>(
+                    future: getMap(plist),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<Map<String, ParkState>> snapshot) {
+                      switch (snapshot.connectionState) {
+                        case ConnectionState.none:
+                        case ConnectionState.waiting:
+                          return const Center(
+                              child: CircularProgressIndicator());
+                          break;
+                        default:
+                          if (snapshot.hasError) {
+                            throw Exception("An Error Occurred");
+                          }
+                      }
+                      parkingMap = snapshot.data;
+                      print(parkingMap);
+                      return GridView.count(
+                        padding: EdgeInsets.zero,
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        mainAxisSpacing: 0,
+                        crossAxisSpacing: 110,
+                        crossAxisCount: 2,
+                        children: [
+                          ParkingCard(
+                            name: 'A1',
+                            parkState: parkingMap!.values.elementAt(0),
+                            id: parkingMap!.keys.elementAt(0),
+                            onPressed: () =>
+                                setSelectedIndex(parkingMap!.keys.elementAt(0)),
+                          ),
+                          ParkingCard(
+                              name: 'B1',
+                              parkState: parkingMap!.values.elementAt(4),
+                              id: parkingMap!.keys.elementAt(4),
+                              onPressed: () => setSelectedIndex(
+                                  parkingMap!.keys.elementAt(4))),
+                          ParkingCard(
+                              name: 'A2',
+                              parkState: parkingMap!.values.elementAt(1),
+                              id: parkingMap!.keys.elementAt(1),
+                              onPressed: () => setSelectedIndex(
+                                  parkingMap!.keys.elementAt(1))),
+                          ParkingCard(
+                              name: 'B2',
+                              parkState: parkingMap!.values.elementAt(5),
+                              id: parkingMap!.keys.elementAt(5),
+                              onPressed: () => setSelectedIndex(
+                                  parkingMap!.keys.elementAt(5))),
+                          ParkingCard(
+                              name: 'A3',
+                              parkState: parkingMap!.values.elementAt(2),
+                              id: parkingMap!.keys.elementAt(2),
+                              onPressed: () => setSelectedIndex(
+                                  parkingMap!.keys.elementAt(2))),
+                          ParkingCard(
+                              name: 'B3',
+                              parkState: parkingMap!.values.elementAt(6),
+                              id: parkingMap!.keys.elementAt(6),
+                              onPressed: () => setSelectedIndex(
+                                  parkingMap!.keys.elementAt(6))),
+                          ParkingCard(
+                              name: 'A4',
+                              parkState: parkingMap!.values.elementAt(3),
+                              id: parkingMap!.keys.elementAt(3),
+                              onPressed: () => setSelectedIndex(
+                                  parkingMap!.keys.elementAt(3))),
+                          ParkingCard(
+                              name: 'B4',
+                              parkState: parkingMap!.values.elementAt(7),
+                              id: parkingMap!.keys.elementAt(7),
+                              onPressed: () => setSelectedIndex(
+                                  parkingMap!.keys.elementAt(7)))
+                        ],
+                      );
+                    }),
               ),
             ),
             mainButton(
                 text: 'Reserve',
                 onPressed: () {
-                  print('switch to reserve screen');
+                  String pid = selectedCardID.toString();
+                  String state = 'reserved';
+                  ParkingSlots parkSlot = ParkingSlots(pid, state);
+                  print(parkSlot.pID);
+                  //pp.changeState(parkSlot, ParkState.reserved);
+                  selectedCardID = "0";
                 }),
           ],
         ),
