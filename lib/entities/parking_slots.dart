@@ -4,14 +4,16 @@ import 'package:parking_system/utils/constants.dart';
 
 class ParkingSlots {
   final String pID;
-  ParkState currentState;
+  late ParkState currentState;
 
-  ParkingSlots({required this.pID, required this.currentState});
+  ParkingSlots(this.pID, String state) {
+    currentState = toState(state);
+  }
 
-  factory ParkingSlots.fromJson(Map<String, dynamic> json) => ParkingSlots(
-        pID: json['pID'] as String,
-        currentState: toState(json['currentState']),
-      );
+  // factory ParkingSlots.fromJson(Map<String, dynamic> json) => ParkingSlots(
+  //       pID: json['pID'] as String,
+  //       currentState: toState(json['currentState']),
+  //     );
 
   Map<String, dynamic> toJson() => {
         "pID": pID,
@@ -19,6 +21,7 @@ class ParkingSlots {
       };
 
   static ParkState toState(String state) {
+    state = state.trim();
     switch (state) {
       case "occupied":
         return ParkState.occupied;

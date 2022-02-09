@@ -5,7 +5,7 @@ class ParkingCard extends StatelessWidget {
   String name;
   ParkState parkState;
   final Function() onPressed;
-  int id;
+  String id;
   bool isSelected = false;
   ParkingCard(
       {required this.name,
@@ -25,24 +25,33 @@ class ParkingCard extends StatelessWidget {
                 name,
                 style: isSelected ? kSelectedTextStyle : kTitleTextStyle,
               )
-            : Image.asset(
-                'images/car.png',
-              ),
-        decoration: parkState == ParkState.occupied
-            ? BoxDecoration(
-                border: Border.symmetric(
-                    horizontal: BorderSide(color: Colors.grey.shade700.withOpacity(0.7), width: 3.5)),
-              )
-            : BoxDecoration(
-                border: Border.symmetric(
-                  horizontal: BorderSide(
-                    color: isSelected
-                        ? Colors.green.shade600
-                        : Colors.grey.shade700.withOpacity(0.7),
-                    width: 3.5,
+            : parkState == ParkState.occupied
+                ? Image.asset(
+                    'images/car.png',
+                  )
+                : Text(
+                    "R",
+                    style: kReservedTextStyle,
                   ),
-                ),
-              ),
+        decoration:
+            // parkState == ParkState.occupied?
+            BoxDecoration(
+          border: Border.symmetric(
+              horizontal: BorderSide(
+                  color: Colors.grey.shade700.withOpacity(0.7), width: 3.5)),
+        ),
+        // : BoxDecoration(
+        //     border: Border.symmetric(
+        //       horizontal: BorderSide(
+        //         color: parkState == ParkState.reserved
+        //             ? Colors.yellow
+        //             : isSelected
+        //                 ? Colors.green.shade600
+        //                 : Colors.grey.shade700.withOpacity(0.7),
+        //         width: 3.5,
+        //       ),
+        //     ),
+        //   ),
         padding: EdgeInsets.all(10),
       ),
     );

@@ -13,11 +13,11 @@ class AuthRepo {
 
   static Future<String?> signIn(String email, String password) async {
     try {
-      UserCredential credential = await FirebaseAuth.instance
+      final newUser = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
-      return credential.user!.uid;
+      return newUser.user!.uid.toString();
     } on FirebaseAuthException catch (e) {
-      print(e.code);
+      print("Firebase Exception: " + e.code);
     }
   }
 

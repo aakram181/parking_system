@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-int selectedCardID = 0;
+String selectedCardID = '0';
 
 enum ParkState { empty, occupied, reserved, unknown }
 
@@ -10,6 +10,13 @@ TextStyle kSelectedTextStyle = TextStyle(
   fontSize: 40.0.sp,
   fontWeight: FontWeight.w700,
   color: Colors.green,
+);
+
+TextStyle kReservedTextStyle = TextStyle(
+  fontFamily: 'Roboto',
+  fontSize: 0.5,
+  fontWeight: FontWeight.w700,
+  color: Colors.yellow,
 );
 
 TextStyle kButtonTextStyle = TextStyle(
@@ -25,12 +32,10 @@ TextStyle kTitleTextStyle = TextStyle(
   color: Colors.white,
 );
 
-TextStyle kSubTitleTextStyle =TextStyle(
+TextStyle kSubTitleTextStyle = TextStyle(
   fontFamily: 'Cairo',
   fontSize: 22.0.sp,
   color: Colors.white,
 );
 
-
 Color kButtonColor = Color(0xFF137EA0);
-

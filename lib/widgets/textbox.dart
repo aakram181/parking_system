@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../utils/constants.dart';
 
 class TextBox extends StatelessWidget {
-
-  static String? _dummyValidator(String? x){
+  static String? _dummyValidator(String? x) {
     return null;
   }
 
-  static void  _dummyOnSaved(String? x){
+  static void _dummyOnSaved(String? x) {
     return null;
   }
 
@@ -19,9 +19,15 @@ class TextBox extends StatelessWidget {
   final String? Function(String?) validator;
   final void Function(String?) onSaved;
   final TextInputType textInputType;
-  TextBox({required this.labelText, required this.icon, this.obscureText = false,
-    this.textInputType= TextInputType.text, this.maxLength = 100, this.validator = _dummyValidator,
-    this.onSaved = _dummyOnSaved, });
+  TextBox({
+    required this.labelText,
+    required this.icon,
+    this.obscureText = false,
+    this.textInputType = TextInputType.text,
+    this.maxLength = 100,
+    this.validator = _dummyValidator,
+    this.onSaved = _dummyOnSaved,
+  });
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -37,17 +43,17 @@ class TextBox extends StatelessWidget {
         ),
         cursorColor: Colors.white,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.all(10.0),
+            contentPadding: EdgeInsets.all(10.0),
             suffixIcon: Icon(icon, color: kButtonColor),
             labelText: labelText,
             labelStyle: TextStyle(
               color: Colors.white,
             ),
             enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: kButtonColor,),
-            )
-        ),
-
+              borderSide: BorderSide(
+                color: kButtonColor,
+              ),
+            )),
       ),
     );
   }
