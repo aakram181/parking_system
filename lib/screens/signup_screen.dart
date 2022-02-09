@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:parking_system/entities/car.dart';
 import 'package:parking_system/entities/user.dart';
-import 'package:parking_system/repository/AuthRepo.dart';
-import 'package:parking_system/repository/CarRepo.dart';
-import 'package:parking_system/repository/UserRepo.dart';
+import 'package:parking_system/repository/auth_repo.dart';
+import 'package:parking_system/repository/car_repo.dart';
+import 'package:parking_system/repository/user_repo.dart';
+import 'package:parking_system/screens/signup_payment.dart';
 import 'package:parking_system/utils/constants.dart';
-import '../widgets/textbox.dart';
-import '../widgets/main_button.dart';
-import 'signup_payment.dart';
-import '../utils/validators.dart';
 
+import '../utils/validators.dart';
+import '../widgets/main_button.dart';
+import '../widgets/textbox.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);
@@ -40,15 +40,15 @@ class _SignupScreenState extends State<SignupScreen> {
     });
   }
 
-
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: Center(
         child: Container(
-            padding: EdgeInsets.only(left: 20.0, right :  20.0,),
+            padding: const EdgeInsets.only(
+              left: 20.0,
+              right: 20.0,
+            ),
             child: SingleChildScrollView(
               child: Form(
                 autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -58,104 +58,88 @@ class _SignupScreenState extends State<SignupScreen> {
                     children: [
                       Align(
                         alignment: Alignment.centerLeft,
-                        child: Text('Sign up',
+                        child: Text(
+                          'Sign up',
                           style: kTitleTextStyle,
-                          textAlign: TextAlign.left,),
+                          textAlign: TextAlign.left,
+                        ),
                       ),
-
                       Align(
                         alignment: Alignment.centerLeft,
-                        child: Text('Fill in your registeration details',
-                          style: kSubTitleTextStyle,),
+                        child: Text(
+                          'Fill in your registration details',
+                          style: kSubTitleTextStyle,
+                        ),
                       ),
-
                       SizedBox(
-                        height:20.0.h,
+                        height: 20.0.h,
                       ),
-
-                      TextBox(labelText : 'Username',
-                        icon: Icons.account_circle_outlined,
-                        validator: Validator.validateUsername,
-                        onSaved: (value){
-                        _username = value.toString();
-                      }),
-
-                      SizedBox(
-                        height:20.0.h,
-                      ),
-
                       TextBox(
-                          labelText : 'Password',
-                          icon: Icons.password,
-                          obscureText: true,
-                          validator: Validator.validatePassword,
-                          onSaved: (value){
-                            _password = value.toString();
-                          },
+                          labelText: 'Username',
+                          icon: Icons.account_circle_outlined,
+                          validator: Validator.validateUsername,
+                          onSaved: (value) {
+                            _username = value.toString();
+                          }),
+                      SizedBox(
+                        height: 20.0.h,
+                      ),
+                      TextBox(
+                        labelText: 'Password',
+                        icon: Icons.password,
+                        obscureText: true,
+                        validator: Validator.validatePassword,
+                        onSaved: (value) {
+                          _password = value.toString();
+                        },
                       ),
                       SizedBox(
-                        height:20.0.h,
+                        height: 20.0.h,
                       ),
-
                       TextBox(
-                        labelText : 'Email',
+                        labelText: 'Email',
                         icon: Icons.email,
-                        textInputType:TextInputType.emailAddress,
+                        textInputType: TextInputType.emailAddress,
                         validator: Validator.validateEmail,
-                        onSaved: (value){
+                        onSaved: (value) {
                           _email = value.toString();
                         },
-                        ),
-
-                      SizedBox(
-                        height:20.0.h,
                       ),
-
+                      SizedBox(
+                        height: 20.0.h,
+                      ),
                       TextBox(
-                        labelText : 'License plate no.',
+                        labelText: 'License plate no.',
                         icon: Icons.directions_car,
-                        validator: Validator.validateLicensePlate,
-                        onSaved: (value){
+                        //validator: Validator.validateLicensePlate,
+                        onSaved: (value) {
                           _plateNo = value.toString();
+                          print(_plateNo);
                         },
-
                       ),
-
                       SizedBox(
-                        height:50.0.h,
+                        height: 50.0.h,
                       ),
-
-
                       mainButton(
                           text: 'Next',
-                          onPressed: (){
+                          onPressed: () {
                             FocusScope.of(context).unfocus();
-                            final bool isValid = _formKey.currentState!.validate();
-                            if(isValid){
+                            final bool isValid =
+                                _formKey.currentState!.validate();
+                            if (isValid) {
                               _formKey.currentState!.save();
-                              _emailSignUp(_email, _password, _plateNo, _username);
-                              Navigator.push(context, MaterialPageRoute(builder: (context){
-                               return SignupPayment();
-                               }));
+                              _emailSignUp(
+                                  _email, _password, _plateNo, _username);
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return SignupPayment();
+                              }));
                             }
-
                           }),
-                    ]
-                ),
+                    ]),
               ),
-            )
-        ),
+            )),
       ),
     );
   }
 }
-
-
-
-
-
-
-
-
-
-

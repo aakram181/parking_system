@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>442730231267-1c8fkb8ff98g8a46fcai3t7kkmekntgo.apps.googleusercontent.com</string>
+	<string>582983161542-uulf6uvici3oe0f8n0q8fu7fbdhcvlbu.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.442730231267-1c8fkb8ff98g8a46fcai3t7kkmekntgo</string>
+	<string>com.googleusercontent.apps.582983161542-uulf6uvici3oe0f8n0q8fu7fbdhcvlbu</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDIGtgy4UW3ECB8KsHaWjCbrxVgS-dHRkE</string>
+	<string>AIzaSyB9xKGQG8bzGbIFjC7EibqrrHHGRpZO3YU</string>
 	<key>GCM_SENDER_ID</key>
-	<string>442730231267</string>
+	<string>582983161542</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.example.parkingSystem</string>
 	<key>PROJECT_ID</key>
-	<string>parking-system-28e75</string>
+	<string>parking-app-e920f</string>
 	<key>STORAGE_BUCKET</key>
-	<string>parking-system-28e75.appspot.com</string>
+	<string>parking-app-e920f.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:442730231267:ios:de8398e6325a4c72e11cd6</string>
+	<string>1:582983161542:ios:0bd1eeb3ecb5d971c3e9c7</string>
+	<key>DATABASE_URL</key>
+	<string>https://parking-app-e920f-default-rtdb.firebaseio.com</string>
 </dict>
 </plist>
