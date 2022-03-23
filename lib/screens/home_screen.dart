@@ -4,7 +4,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'map_page.dart';
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  static const String id = 'home_screen';
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -94,9 +94,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                     onTap: () {
-                      Navigator.push(
+                      Navigator.pushNamed(
                         context,
-                        MaterialPageRoute(builder: (context) => MapPage()),
+                        MapPage.id
                       );
                     },
                   );

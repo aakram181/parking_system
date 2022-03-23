@@ -11,7 +11,7 @@ import '../widgets/main_button.dart';
 import '../widgets/textbox.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  static const String id = 'login_screen';
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -87,12 +87,12 @@ class _LoginScreenState extends State<LoginScreen> {
                               _formKey.currentState!.validate();
                           if (isValid) {
                             _formKey.currentState!.save();
+                            print(email);
                             final value = await _login(email, password);
+
                             if (value == true) {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) {
-                                return const HomeScreen();
-                              }));
+                              Navigator.pushNamed(context,
+                                  HomeScreen.id);
                             } else {
                               // TODO: Snack bar
                               print("False Credentials!");
@@ -110,10 +110,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               text: 'Register',
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
-                                  Navigator.push(context,
-                                      MaterialPageRoute(builder: (context) {
-                                    return const SignupScreen();
-                                  }));
+                                  Navigator.pushNamed(context,
+                                      SignupScreen.id);
                                 },
                               style: const TextStyle(
                                 decoration: TextDecoration.underline,

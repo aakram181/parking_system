@@ -13,7 +13,8 @@ import '../widgets/main_button.dart';
 import '../widgets/textbox.dart';
 
 class SignupScreen extends StatefulWidget {
-  const SignupScreen({Key? key}) : super(key: key);
+  static const String id = 'signup_screen';
+
 
   @override
   _SignupScreenState createState() => _SignupScreenState();
@@ -130,10 +131,7 @@ class _SignupScreenState extends State<SignupScreen> {
                               _formKey.currentState!.save();
                               _emailSignUp(
                                   _email, _password, _plateNo, _username);
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) {
-                                return SignupPayment();
-                              }));
+                              Navigator.pushNamed(context,SignupPayment.id);
                             }
                           }),
                     ]),

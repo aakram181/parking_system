@@ -6,7 +6,7 @@ import 'package:parking_system/widgets/main_button.dart';
 import 'package:parking_system/widgets/parking_card.dart';
 
 class MapPage extends StatefulWidget {
-  const MapPage({Key? key}) : super(key: key);
+  static const String id = 'map_screen';
 
   @override
   _MapPageState createState() => _MapPageState();
