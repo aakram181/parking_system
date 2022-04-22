@@ -27,6 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
     await AuthRepo.signIn(email, pwd).then((uID) {
       if (uID != null) {
         print("Login Successful!"); // ToDo: Replace with snack bar
+\        // TODO: add spinner
         isSuccess = true;
       }
     });

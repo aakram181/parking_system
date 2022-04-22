@@ -37,6 +37,8 @@ class _SignupScreenState extends State<SignupScreen> {
         cRepo.addCar();
         UserRepo uRepo = UserRepo(user);
         uRepo.addUser();
+        // TODO: add spinner
+
       }
     });
   }
