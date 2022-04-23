@@ -3,15 +3,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../entities/user.dart';
 
 class UserRepo {
-  User user;
-  final CollectionReference usersRef =
+  static final CollectionReference usersRef =
       FirebaseFirestore.instance.collection('users').withConverter<User>(
             fromFirestore: (snapshot, _) => User.fromJson(snapshot.data()!),
             toFirestore: (user, _) => user.toJson(),
           );
-  UserRepo(this.user);
-
-  Future<void> addUser() {
+  static Future<void> addUser(User user) {
     return usersRef
         .doc(user.uid)
         .set(user)
@@ -19,7 +16,15 @@ class UserRepo {
         .catchError((error) => print("Failed to add user: $error"));
   }
 
-  Future<void> deleteUser(String uID) {
+  static Future<void> deleteUser(String uID) {
     return usersRef.doc(uID).delete();
+  }
+
+  static Future<String> getUsername(String uid) async {
+    late String username;
+    await usersRef.doc(uid).get().then((value) {
+      username = value['username'];
+    });
+    return username;
   }
 }

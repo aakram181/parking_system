@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthRepo {
@@ -7,7 +9,7 @@ class AuthRepo {
           .createUserWithEmailAndPassword(email: email, password: password);
       return credential.user!.uid;
     } on FirebaseAuthException catch (e) {
-      print(e.code);
+      print("Firebase Exception: " + e.code);
     }
   }
 
@@ -31,7 +33,7 @@ class AuthRepo {
         currentUser.updatePassword(newPassword);
       }
     } on FirebaseAuthException catch (e) {
-      return e.code;
+      print("Firebase Exception: " + e.code);
     }
   }
 
@@ -43,7 +45,7 @@ class AuthRepo {
     try {
       await FirebaseAuth.instance.currentUser!.delete();
     } on FirebaseAuthException catch (e) {
-      return e.code;
+      print("Firebase Exception: " + e.code);
     }
   }
 
@@ -55,7 +57,25 @@ class AuthRepo {
       await FirebaseAuth.instance.currentUser!
           .reauthenticateWithCredential(cred);
     } on FirebaseAuthException catch (e) {
-      return e.code;
+      print("Firebase Exception: " + e.code);
     }
+  }
+
+  static Future<String> currentToken() {
+    return FirebaseAuth.instance.currentUser!.getIdToken(true);
+  }
+
+  static String currentUid() {
+    return FirebaseAuth.instance.currentUser!.uid;
+  }
+
+  static String currentEmail() {
+    return FirebaseAuth.instance.currentUser!.email!;
+  }
+
+  static StreamSubscription onTokenChange() {
+    return FirebaseAuth.instance.idTokenChanges().listen((event) {
+      event!.getIdToken(true);
+    });
   }
 }

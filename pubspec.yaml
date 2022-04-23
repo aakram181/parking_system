@@ -41,6 +41,8 @@ dependencies:
   carousel_slider: ^4.0.0
   flutter_credit_card: ^3.0.1
   firebase_database: ^9.0.6
+  qr_flutter: ^4.0.0
+  crypto: ^3.0.1
 
 dev_dependencies:
   flutter_test:

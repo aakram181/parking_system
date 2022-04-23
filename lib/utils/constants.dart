@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 
 String selectedCardID = '0';
 
+DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
+
 enum ParkState { empty, occupied, reserved, unknown }
+enum TransactionStatus { ongoing, complete }
 
 TextStyle kSelectedTextStyle = TextStyle(
   fontFamily: 'Roboto',
@@ -12,11 +16,18 @@ TextStyle kSelectedTextStyle = TextStyle(
   color: Colors.green,
 );
 
-TextStyle kReservedTextStyle = TextStyle(
+TextStyle kReservedTextStyle = const TextStyle(
   fontFamily: 'Roboto',
   fontSize: 0.5,
   fontWeight: FontWeight.w700,
   color: Colors.yellow,
+);
+
+TextStyle kListItemStyle = TextStyle(
+  fontFamily: 'Cairo',
+  fontSize: 15.0.sp,
+  fontWeight: FontWeight.w300,
+  color: Colors.black,
 );
 
 TextStyle kButtonTextStyle = TextStyle(
