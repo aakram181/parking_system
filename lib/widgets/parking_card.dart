@@ -4,20 +4,14 @@ import 'package:parking_system/utils/constants.dart';
 class ParkingCard extends StatelessWidget {
   String name;
   ParkState parkState;
-  final Function() onPressed;
-  String id;
   bool isSelected = false;
   ParkingCard(
       {required this.name,
-      required this.parkState,
-      required this.onPressed,
-      required this.id});
+      required this.parkState,});
 
   @override
   Widget build(BuildContext context) {
-    isSelected = selectedCardID == id;
     return GestureDetector(
-      onTap: parkState == ParkState.empty ? onPressed : null,
       child: Container(
         alignment: Alignment.center,
         child: parkState == ParkState.empty
