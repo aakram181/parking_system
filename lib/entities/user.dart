@@ -3,26 +3,19 @@ class User {
   final String email;
   final String username;
 
-  User({
-    required this.uid,
-    required this.email,
-    required this.username
-  });
+  User({required this.uid, required this.email, required this.username});
 
   factory User.fromJson(Map<String, dynamic> json) => User(
-    uid: json['uid']! as String,
-    email: json["email"]! as String,
-    username: json['username']! as String,
-  );
+        uid: json['uid']! as String,
+        email: json["email"]! as String,
+        username: json['username']! as String,
+      );
 
-  Map<String, dynamic> toJson() => {
-    "uid":uid,
-    "email": email,
-    "username": username};
+  Map<String, dynamic> toJson() =>
+      {"uid": uid, "email": email, "username": username};
 
   @override
   String toString() {
     return 'Username{username: $username}';
   }
 }
-

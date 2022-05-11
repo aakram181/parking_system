@@ -1,11 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:parking_system/repository/auth_repo.dart';
 import 'package:parking_system/screens/home_screen.dart';
 import 'package:parking_system/screens/signup_screen.dart';
 import 'package:parking_system/utils/constants.dart';
 import 'package:parking_system/utils/validators.dart';
+import 'package:parking_system/utils/view_model.dart';
 
 import '../widgets/main_button.dart';
 import '../widgets/textbox.dart';
@@ -23,20 +23,12 @@ class _LoginScreenState extends State<LoginScreen> {
   String password = '';
 
   Future<bool> _login(String email, String pwd) async {
-    bool isSuccess = false;
-    await AuthRepo.signIn(email, pwd).then((uID) {
-      if (uID != null) {
-        print("Login Successful!"); // ToDo: Replace with snack bar
-        // TODO: add spinner
-        isSuccess = true;
-      }
-    });
-
-    return isSuccess;
+    return ViewModel.login(email, pwd);
   }
 
   @override
   Widget build(BuildContext context) {
+    SnackBar snackBar;
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -92,12 +84,21 @@ class _LoginScreenState extends State<LoginScreen> {
                             final value = await _login(email, password);
 
                             if (value == true) {
-                              Navigator.pushNamed(context,
-                                  HomeScreen.id);
+                              snackBar = const SnackBar(
+                                  backgroundColor: Colors.blue,
+                                  content: Text("Login Successfully"));
+
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return const HomeScreen();
+                              }));
                             } else {
-                              // TODO: Snack bar
-                              print("False Credentials!");
+                              snackBar = const SnackBar(
+                                  backgroundColor: Colors.blue,
+                                  content: Text("Incorrect Email or Password"));
                             }
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
                           }
                         }),
                     SizedBox(
