@@ -1,24 +1,24 @@
-import 'package:flutter/material.dart';
-import 'package:parking_system/utils/constants.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:parking_system/utils/constants.dart';
+import 'package:parking_system/widgets/main_drawer.dart';
+
 import 'map_page.dart';
+
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  static const String id = 'home_screen';
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
-  int _selectedIndex = 0;
   final List<String> imageList = [
     'images/newcairo.png',
     'images/downtown.jpg',
     'images/maadi.jpg',
     'images/opera_square.jpg',
-
   ];
   final List<String> descriptionList = [
     "New Cairo",
@@ -27,32 +27,18 @@ class _HomeScreenState extends State<HomeScreen> {
     "Opera square",
   ];
 
-
-
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
+      appBar: AppBar(
+          backgroundColor: const Color(0xFF08051F),
+          toolbarHeight: 164,
+          title: Text("Choose Your Destination ", style: kSubTitleTextStyle)),
+      drawer: MainDrawer(),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(height: 80),
-          Center(
-            child: Text(
-              'Choose Your Destination',
-              style: kTitleTextStyle,
-          )),
-          SizedBox(
-            height: 50,
-          ),
           Expanded(
             child: Container(
               child: CarouselSlider.builder(
@@ -73,19 +59,17 @@ class _HomeScreenState extends State<HomeScreen> {
                             height: 300.h,
                             width: 300.w,
                             decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage(imageList[i]),
-                                fit: BoxFit.fill,
-                              ),
+                                image: DecorationImage(
+                                  image: AssetImage(imageList[i]),
+                                  fit: BoxFit.fill,
+                                ),
                                 borderRadius: BorderRadius.circular(20),
                                 border: Border.all(
                                   color: Colors.white,
-                                )
-                            ),
+                                )),
                           ),
                         ),
                         SizedBox(height: 20.h),
-
                         Text(
                           descriptionList[i],
                           style: kSubTitleTextStyle,
@@ -104,30 +88,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ],
-      ),
-
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          border: Border(top: BorderSide(color: Colors.white, width: 0.5)),
-        ),
-        child: BottomNavigationBar(
-          backgroundColor: Color(0xFF080515),
-          unselectedItemColor: Colors.white,
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle),
-              label: 'Profile',
-            ),
-          ],
-          currentIndex: _selectedIndex,
-          selectedItemColor: kButtonColor,
-          onTap: _onItemTapped,
-        ),
       ),
     );
   }
