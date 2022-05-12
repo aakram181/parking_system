@@ -7,6 +7,8 @@ import '../widgets/textbox.dart';
 import '../widgets/main_button.dart';
 
 class SignupPayment extends StatelessWidget {
+  static const String id = 'signup_payment_screen';
+
   final _formKey = GlobalKey<FormState>();
   String _cardNo = '';
 
@@ -18,6 +20,8 @@ class SignupPayment extends StatelessWidget {
         child: Container(
             padding: EdgeInsets.only(left: 20.0.w, right :  20.0.w,),
             child: Form(
+              key: _formKey,
+
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -115,9 +119,7 @@ class SignupPayment extends StatelessWidget {
                             final bool isValid = _formKey.currentState!.validate();
                             if(isValid){
                               _formKey.currentState!.save();
-                              Navigator.push(context, MaterialPageRoute(builder: (context){
-                                return HomeScreen();
-                              }));
+                              Navigator.pushNamed(context, HomeScreen.id);
                       }
 
                     }),
