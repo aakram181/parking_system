@@ -4,7 +4,8 @@ import 'package:parking_system/widgets/main_drawer.dart';
 import 'package:parking_system/widgets/qr_image.dart';
 
 class GenerateQRScreen extends StatefulWidget {
-  const GenerateQRScreen({Key? key}) : super(key: key);
+  static const String id = 'generateQR_screen';
+
   @override
   State<GenerateQRScreen> createState() => _GenerateQRScreenState();
 }

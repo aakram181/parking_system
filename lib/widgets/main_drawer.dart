@@ -47,7 +47,7 @@ class MainDrawer extends StatelessWidget {
                     DrawerItem(
                       title: 'Profile',
                       onPressed: MaterialPageRoute(builder: (context) {
-                        return const HomeScreen();
+                        return HomeScreen();
                       }),
                       icon: Icons.account_circle,
                     ),
@@ -61,14 +61,14 @@ class MainDrawer extends StatelessWidget {
                     DrawerItem(
                       title: 'Generate QR Code',
                       onPressed: MaterialPageRoute(builder: (context) {
-                        return const GenerateQRScreen();
+                        return GenerateQRScreen();
                       }),
                       icon: Icons.qr_code_2,
                     ),
                     DrawerItem(
                       title: 'Payment',
                       onPressed: MaterialPageRoute(builder: (context) {
-                        return const HomeScreen();
+                        return HomeScreen();
                       }),
                       icon: Icons.credit_card,
                     )

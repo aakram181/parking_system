@@ -40,19 +40,6 @@ class Validator {
     }
   }
 
-  static String? validateCreditCard(String? value) {
-    String visaCard = r'^4[0-9]{12}(?:[0-9]{3})?$';
-    String masterCard =
-        r'^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$';
-    RegExp vCard = RegExp(visaCard);
-    RegExp mCard = RegExp(masterCard);
-    if (!(vCard.hasMatch(value!) || mCard.hasMatch(value))) {
-      return "Invalid card number";
-    } else {
-      return null;
-    }
-  }
-
   static String? validatePassword(String? value) {
     String password =
         r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
