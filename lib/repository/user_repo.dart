@@ -16,6 +16,14 @@ class UserRepo {
         .catchError((error) => print("Failed to add user: $error"));
   }
 
+  static Future<void> UpdateUser(User user) {
+    return usersRef
+        .doc(user.uid)
+        .update({ "email":user.email,"username":user.username})
+        .then((value) => print("User Updated"))
+        .catchError((error) => print("Failed to update user: $error"));
+  }
+
   static Future<void> deleteUser(String uID) {
     return usersRef.doc(uID).delete();
   }

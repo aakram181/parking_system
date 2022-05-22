@@ -49,4 +49,11 @@ TextStyle kSubTitleTextStyle = TextStyle(
   color: Colors.white,
 );
 
+TextStyle avatarTextStyle = TextStyle(
+  fontFamily: 'Roboto',
+  fontSize: 45.0.sp,
+  fontWeight: FontWeight.w700,
+  color: Colors.black,
+);
+
 Color kButtonColor = Color(0xFF137EA0);

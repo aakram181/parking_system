@@ -43,6 +43,8 @@ dependencies:
   firebase_database: ^9.0.6
   qr_flutter: ^4.0.0
   crypto: ^3.0.1
+  animated_splash_screen: ^1.2.0
+
 
 dev_dependencies:
   flutter_test:
@@ -74,7 +76,7 @@ flutter:
     - images/newcairo.png
     - images/downtown.jpg
     - images/maadi.jpg
-    - images/opera_square.jpg
+    - images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:parking_system/screens/EditProfilePage.dart';
 import 'package:parking_system/screens/generateQR_screen.dart';
 import 'package:parking_system/screens/history_screen.dart';
 import 'package:parking_system/screens/home_screen.dart';
+import 'package:parking_system/screens/login_screen.dart';
 import 'package:parking_system/utils/constants.dart';
 import 'package:parking_system/utils/view_model.dart';
 import 'package:parking_system/widgets/drawer_item.dart';
@@ -47,7 +49,7 @@ class MainDrawer extends StatelessWidget {
                     DrawerItem(
                       title: 'Profile',
                       onPressed: MaterialPageRoute(builder: (context) {
-                        return HomeScreen();
+                        return EditProfilePage();
                       }),
                       icon: Icons.account_circle,
                     ),
@@ -71,6 +73,14 @@ class MainDrawer extends StatelessWidget {
                         return HomeScreen();
                       }),
                       icon: Icons.credit_card,
+                    ),
+                    DrawerItem(
+                      title: 'Log Out',
+                      onPressed:
+                      MaterialPageRoute(builder: (context) {
+                        return LoginScreen();
+                      }),
+                      icon: Icons.exit_to_app,
                     )
                   ],
                 ),
@@ -79,4 +89,6 @@ class MainDrawer extends StatelessWidget {
       ),
     );
   }
+
+
 }
