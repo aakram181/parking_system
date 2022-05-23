@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:parking_system/screens/EditProfilePage.dart';
+import 'package:parking_system/screens/edit_profile_screen.dart';
 import 'package:parking_system/screens/generateQR_screen.dart';
 import 'package:parking_system/screens/login_screen.dart';
 import 'package:parking_system/screens/signup_payment.dart';
@@ -12,7 +12,7 @@ import 'package:parking_system/screens/signup_screen.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 
 import 'screens/home_screen.dart';
-import 'screens/map_page.dart';
+import 'screens/map_screen.dart';
 
 bool EMULATOR = false;
 Future<void> main() async {
@@ -51,14 +51,14 @@ class MyApp extends StatelessWidget {
           home: AnimatedSplashScreen(
             splash: Column(
                 children:[
-                Center(child: Image.asset('images/car.png',width: 400,height: 35,)),
-                  const Text('El Sayes App',style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold,color: Colors.black),)
+                Center(child: Image.asset('images/parking_img.png',width: 400,height: 30,)),
+                  const Text('El Sayes App',style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold,color: Colors.white),)
               ],
             ),
-            backgroundColor: Colors.white,
+            backgroundColor: Color(0xFF08051F),
             splashTransition: SplashTransition.fadeTransition,
             nextScreen: LoginScreen(),
-            duration: 3000,
+            duration: 2000,
           ),
           routes: {
             HomeScreen.id: (context) => HomeScreen(),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:parking_system/screens/EditProfilePage.dart';
+import 'package:parking_system/screens/edit_profile_screen.dart';
 import 'package:parking_system/screens/generateQR_screen.dart';
 import 'package:parking_system/screens/history_screen.dart';
 import 'package:parking_system/screens/home_screen.dart';

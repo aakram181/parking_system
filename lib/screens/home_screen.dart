@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:parking_system/utils/constants.dart';
 import 'package:parking_system/widgets/main_drawer.dart';
 
-import 'map_page.dart';
+import 'map_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String id = 'home_screen';
