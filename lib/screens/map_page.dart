@@ -80,7 +80,7 @@ class _MapPageState extends State<MapPage> {
                       final p = ParkingCard(
                         name:k.toString(),
                         parkState: ParkingSlots.toState(data_map[k]!['state'],
-                      ));
+                      ), );
                       parkingWidget.add(p);
                     }
                       return GridView.count(

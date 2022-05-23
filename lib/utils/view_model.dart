@@ -34,4 +34,15 @@ class ViewModel {
       }
     });
   }
+
+  static void updateInfo(String email,String password, String username) async {
+    var uID = AuthRepo.currentUid();
+    if (uID != null) {
+        User user = User(uid: uID, email: email, username: username);
+        UserRepo.UpdateUser(user);
+        AuthRepo.changeEmail(email);
+        AuthRepo.changePassword(password);
+      }
+  }
+
 }

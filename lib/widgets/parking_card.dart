@@ -7,7 +7,7 @@ class ParkingCard extends StatelessWidget {
   bool isSelected = false;
   ParkingCard(
       {required this.name,
-      required this.parkState,});
+        required this.parkState,});
 
   @override
   Widget build(BuildContext context) {
@@ -16,20 +16,20 @@ class ParkingCard extends StatelessWidget {
         alignment: Alignment.center,
         child: parkState == ParkState.empty
             ? Text(
-                name,
-                style: isSelected ? kSelectedTextStyle : kTitleTextStyle,
-              )
+          name,
+          style: isSelected ? kSelectedTextStyle : kTitleTextStyle,
+        )
             : parkState == ParkState.occupied
-                ? Image.asset(
-                    'images/car.png',
-                  )
-                : Text(
-                    "R",
-                    style: kReservedTextStyle,
-                  ),
+            ? Image.asset(
+          'images/car.png',
+        )
+            : Text(
+          "R",
+          style: kReservedTextStyle,
+        ),
         decoration:
-            // parkState == ParkState.occupied?
-            BoxDecoration(
+        // parkState == ParkState.occupied?
+        BoxDecoration(
           border: Border.symmetric(
               horizontal: BorderSide(
                   color: Colors.grey.shade700.withOpacity(0.7), width: 3.5)),

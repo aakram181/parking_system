@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:parking_system/screens/signup_payment.dart';
+import 'package:parking_system/screens/home_screen.dart';
 import 'package:parking_system/utils/constants.dart';
 import 'package:parking_system/utils/view_model.dart';
 
@@ -8,19 +8,18 @@ import '../utils/validators.dart';
 import '../widgets/main_button.dart';
 import '../widgets/textbox.dart';
 
-class SignupScreen extends StatefulWidget {
-  static const String id = 'signup_screen';
+class UpdateInfo extends StatefulWidget {
+  static const String id = 'UpdateInfo_screen';
 
   @override
-  _SignupScreenState createState() => _SignupScreenState();
+  _UpdateInfoState createState() => _UpdateInfoState();
 }
 
-class _SignupScreenState extends State<SignupScreen> {
+class _UpdateInfoState extends State<UpdateInfo> {
   final _formKey = GlobalKey<FormState>();
   String _username = '';
   String _password = '';
   String _email = '';
-  String _plateNo = '';
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +40,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          'Sign up',
+                          '',
                           style: kTitleTextStyle,
                           textAlign: TextAlign.left,
                         ),
@@ -49,7 +48,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          'Fill in your registration details',
+                          'Update your data',
                           style: kSubTitleTextStyle,
                         ),
                       ),
@@ -90,33 +89,22 @@ class _SignupScreenState extends State<SignupScreen> {
                       SizedBox(
                         height: 20.0.h,
                       ),
-                      TextBox(
-                        labelText: 'License plate no.',
-                        icon: Icons.directions_car,
-                        //validator: Validator.validateLicensePlate,
-                        onSaved: (value) {
-                          _plateNo = value.toString();
-                          print(_plateNo);
-                        },
-                      ),
-                      SizedBox(
-                        height: 50.0.h,
-                      ),
                       mainButton(
-                          text: 'Next',
+                          text: 'Update',
                           onPressed: () {
                             FocusScope.of(context).unfocus();
                             final bool isValid =
                                 _formKey.currentState!.validate();
                             if (isValid) {
                               _formKey.currentState!.save();
-                              ViewModel.emailSignUp(
-                                  _email, _password, _plateNo, _username);
+                              ViewModel.updateInfo(
+                                  _email,_password ,_username);
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (context) {
-                                return SignupPayment();
+                                return HomeScreen();
                               }));
-                            } else {
+                            }
+                            else {
                               SnackBar snackBar = const SnackBar(
                                   backgroundColor: Colors.blue,
                                   content:

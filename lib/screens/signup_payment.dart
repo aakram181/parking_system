@@ -1,137 +1,133 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_credit_card/credit_card_brand.dart';
+import 'package:flutter_credit_card/credit_card_form.dart';
+import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:parking_system/screens/home_screen.dart';
-import 'package:parking_system/utils/constants.dart';
-import 'package:parking_system/utils/validators.dart';
-import '../widgets/textbox.dart';
+import 'package:parking_system/widgets/main_button.dart';
+
 import '../widgets/main_button.dart';
 
-class SignupPayment extends StatelessWidget {
+class SignupPayment extends StatefulWidget {
   static const String id = 'signup_payment_screen';
 
-  final _formKey = GlobalKey<FormState>();
-  String _cardNo = '';
+  @override
+  _InputState createState() => _InputState();
+}
 
+class _InputState extends State<SignupPayment> {
+  String cardNumber = '';
+  String expiryDate = '';
+  String cardHolderName = '';
+  String cvvCode = '';
+  bool isCvvFocused = true;
+  bool useBGImage = false;
+  OutlineInputBorder? border;
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    border = OutlineInputBorder(
+        borderSide: BorderSide(
+      color: Colors.grey.withOpacity(0.7),
+      width: 2.0,
+    ));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Container(
-            padding: EdgeInsets.only(left: 20.0.w, right :  20.0.w,),
-            child: Form(
-              key: _formKey,
-
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+      resizeToAvoidBottomInset: false,
+      body: SafeArea(
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 30,
+            ),
+            CreditCardWidget(
+                cardNumber: cardNumber,
+                expiryDate: expiryDate,
+                cardHolderName: cardHolderName,
+                cvvCode: cvvCode,
+                showBackView: isCvvFocused,
+                obscureCardCvv: true,
+                obscureCardNumber: true,
+                onCreditCardWidgetChange: (CreditCardBrand p1) {}),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
                   children: [
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text('Payment Details',
-                        style: kTitleTextStyle,
-                        textAlign: TextAlign.left,),
-                    ),
-
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text('Add your credit card information',
-                        style: kSubTitleTextStyle,),
-                    ),
-                    SizedBox(
-                      height:20.0.h,
-                    ),
-
-                    TextBox(
-                      labelText : 'Credit Card no.',
-                      icon: Icons.credit_card,
-                      textInputType: TextInputType.numberWithOptions(),
-                      maxLength: 16,
-                      validator: Validator.validateCreditCard,
-                      onSaved: (value){
-                        _cardNo = value.toString();
-                      },
-                    ),
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: 0.3.sw,
-                          child: TextFormField(
-                            keyboardType: TextInputType.numberWithOptions(),
-                            style: TextStyle(
-                              color: Colors.white,
-                            ),
-                            cursorColor: Colors.white,
-                            decoration: InputDecoration(
-                                contentPadding: EdgeInsets.all(10.0),
-                                labelText: 'Exp. date',
-                                labelStyle: TextStyle(
-                                  color: Colors.white,
-                                ),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: kButtonColor,),
-                                )
-                            ),
-
-                          ),
-                        ),
-                        SizedBox(
-                          width:70.0.w,
-                        ),
-                        Container(
-                          width: 0.3.sw,
-                          child: TextFormField(
-                            maxLength: 3,
-                            keyboardType: TextInputType.numberWithOptions(),
-                            style: TextStyle(
-                              color: Colors.white,
-                            ),
-                            cursorColor: Colors.white,
-                            decoration: InputDecoration(
-                                contentPadding: EdgeInsets.all(10.0),
-                                labelText: 'CVV',
-                                labelStyle: TextStyle(
-                                  color: Colors.white,
-                                ),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: kButtonColor,),
-                                )
-                            ),
-
-                          ),
-                        )
-                      ],
-
-                          ),
-
-
-                    TextBox(labelText : 'Cardholder Name', icon: Icons.account_circle_outlined, textInputType: TextInputType.numberWithOptions(), maxLength: 16,),
-
-                    SizedBox(
-                      height:50.0.h,
+                    CreditCardForm(
+                      textColor: Colors.white,
+                      cardNumber: cardNumber,
+                      expiryDate: expiryDate,
+                      cardHolderName: cardHolderName,
+                      cvvCode: cvvCode,
+                      isHolderNameVisible: true,
+                      isCardNumberVisible: true,
+                      isExpiryDateVisible: true,
+                      formKey: formKey,
+                      onCreditCardModelChange: onCreditCardModelChange,
+                      themeColor: Colors.blue,
+                      cardNumberDecoration: InputDecoration(
+                        labelText: 'Number',
+                        hintText: 'XXXX XXXX XXXX XXXX',
+                        hintStyle: const TextStyle(color: Colors.white),
+                        labelStyle: const TextStyle(color: Colors.white),
+                        focusedBorder: border,
+                        enabledBorder: border,
+                      ),
+                      expiryDateDecoration: InputDecoration(
+                        hintStyle: const TextStyle(color: Colors.white),
+                        labelStyle: const TextStyle(color: Colors.white),
+                        focusedBorder: border,
+                        enabledBorder: border,
+                        labelText: 'Expired Date',
+                        hintText: 'XX/XX',
+                      ),
+                      cvvCodeDecoration: InputDecoration(
+                        hintStyle: const TextStyle(color: Colors.white),
+                        labelStyle: const TextStyle(color: Colors.white),
+                        focusedBorder: border,
+                        enabledBorder: border,
+                        labelText: 'CVV',
+                        hintText: 'XXX',
+                      ),
+                      cardHolderDecoration: InputDecoration(
+                        hintStyle: const TextStyle(color: Colors.white),
+                        labelStyle: const TextStyle(color: Colors.white),
+                        focusedBorder: border,
+                        enabledBorder: border,
+                        labelText: 'Card Holder',
+                      ),
                     ),
                     mainButton(
-                        text: 'Save',
-                        onPressed: (){
-                            FocusScope.of(context).unfocus();
-                            final bool isValid = _formKey.currentState!.validate();
-                            if(isValid){
-                              _formKey.currentState!.save();
-                              Navigator.pushNamed(context, HomeScreen.id);
-                      }
-
-                    }),
-
-
-
-
-                  ]
+                        text: 'Validate',
+                        onPressed: () {
+                          if (formKey.currentState!.validate()) {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return HomeScreen();
+                            }));
+                          }
+                        }),
+                  ],
+                ),
               ),
-            )
+            ),
+          ],
         ),
       ),
     );
+  }
+
+  void onCreditCardModelChange(CreditCardModel? creditCardModel) {
+    setState(() {
+      cardNumber = creditCardModel!.cardNumber;
+      expiryDate = creditCardModel.expiryDate;
+      cardHolderName = creditCardModel.cardHolderName;
+      cvvCode = creditCardModel.cvvCode;
+      isCvvFocused = creditCardModel.isCvvFocused;
+    });
   }
 }

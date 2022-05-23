@@ -23,15 +23,11 @@ class AuthRepo {
     }
   }
 
-  static Future<String?> changePassword(
-      String currentPassword, String newPassword) async {
+  static Future<String?> changePassword( String newPassword) async {
     try {
       final currentUser = FirebaseAuth.instance.currentUser!;
-      final cred = EmailAuthProvider.credential(
-          email: currentUser.email!, password: currentPassword);
-      if (cred != null) {
-        currentUser.updatePassword(newPassword);
-      }
+      currentUser.updatePassword(newPassword);
+
     } on FirebaseAuthException catch (e) {
       print("Firebase Exception: " + e.code);
     }
@@ -78,4 +74,10 @@ class AuthRepo {
       event!.getIdToken(true);
     });
   }
+
+  static Future <void> changeEmail(String email) async{
+    await FirebaseAuth.instance.currentUser!.updateEmail(email);
+  }
+
+
 }

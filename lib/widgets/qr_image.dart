@@ -30,7 +30,7 @@ class _QImageState extends State<QImage> {
       onListen: () async {
         timer.listen((event) {
           // change data every 1 min
-          data = "$uID *  $event";
+          data = "$uID*$event";
           controller.add(data);
         });
       },

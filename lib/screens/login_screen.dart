@@ -80,9 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               _formKey.currentState!.validate();
                           if (isValid) {
                             _formKey.currentState!.save();
-                            print(email);
                             final value = await _login(email, password);
-
                             if (value == true) {
                               snackBar = const SnackBar(
                                   backgroundColor: Colors.blue,
@@ -90,7 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (context) {
-                                return const HomeScreen();
+                                return HomeScreen();
                               }));
                             } else {
                               snackBar = const SnackBar(
@@ -112,8 +110,10 @@ class _LoginScreenState extends State<LoginScreen> {
                               text: 'Register',
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
-                                  Navigator.pushNamed(context,
-                                      SignupScreen.id);
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) {
+                                    return SignupScreen();
+                                  }));
                                 },
                               style: const TextStyle(
                                 decoration: TextDecoration.underline,
