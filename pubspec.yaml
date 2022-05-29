@@ -44,6 +44,7 @@ dependencies:
   qr_flutter: ^4.0.0
   crypto: ^3.0.1
   animated_splash_screen: ^1.2.0
+  sleek_circular_slider: ^2.0.1
 
 
 dev_dependencies:
@@ -77,6 +78,7 @@ flutter:
     - images/downtown.jpg
     - images/maadi.jpg
     - images/
+    - images/parking.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

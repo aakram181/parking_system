@@ -112,10 +112,7 @@ class _SignupScreenState extends State<SignupScreen> {
                               _formKey.currentState!.save();
                               ViewModel.emailSignUp(
                                   _email, _password, _plateNo, _username);
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) {
-                                return SignupPayment();
-                              }));
+                              Navigator.pushNamed(context,SignupPayment.id);
                             } else {
                               SnackBar snackBar = const SnackBar(
                                   backgroundColor: Colors.blue,

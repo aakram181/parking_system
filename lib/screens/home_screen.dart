@@ -77,10 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => MapPage()),
-                      );
+                      Navigator.pushNamed(context, MapPage.id);
                     },
                   );
                 },
