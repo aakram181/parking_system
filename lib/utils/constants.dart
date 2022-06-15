@@ -56,4 +56,12 @@ TextStyle avatarTextStyle = TextStyle(
   color: Colors.black,
 );
 
-Color kButtonColor = Color(0xFF137EA0);
+
+Color kThemeColor = Color(0xFF08051F);
+
+const Color kButtonColor = Color(0xFF137EA0);
+
+Map <String, String> places = {
+  'Cairo Festival City': 'cfc',
+
+};

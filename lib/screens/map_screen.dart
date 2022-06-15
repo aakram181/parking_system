@@ -14,9 +14,8 @@ class MapPage extends StatefulWidget {
 }
 
 
-
-
 class _MapPageState extends State<MapPage> {
+
 
   final _firestore = FirebaseDatabase.instance.ref("Parking_slots");
 
@@ -26,7 +25,14 @@ class _MapPageState extends State<MapPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+  final args = ModalRoute.of(context)!.settings.arguments;
+
+
+
+
+
+
+  return Scaffold(
       body: Padding(
         padding: const EdgeInsets.fromLTRB(16.0,60.0,16.0,0),
         child: Column(
@@ -102,7 +108,7 @@ class _MapPageState extends State<MapPage> {
               child: mainButton(
                   text: 'Reserve',
                   onPressed: () {
-                    Navigator.pushNamed(context, ReserveScreen.id);
+                    Navigator.pushNamed(context, ReserveScreen.id, arguments: args);
 
                   }),
             ),

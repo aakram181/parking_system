@@ -21,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
     'images/opera_square.jpg',
   ];
   final List<String> descriptionList = [
-    "New Cairo",
+    "Cairo Festival City",
     "Downtown Cairo",
     "Al Maadi",
     "Opera square",
@@ -77,7 +77,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                     onTap: () {
-                      Navigator.pushNamed(context, MapPage.id);
+                      Navigator.pushNamed(context, MapPage.id, arguments:
+                      descriptionList[i]);
                     },
                   );
                 },

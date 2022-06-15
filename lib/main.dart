@@ -6,11 +6,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:parking_system/screens/edit_profile_screen.dart';
 import 'package:parking_system/screens/generateQR_screen.dart';
 import 'package:parking_system/screens/login_screen.dart';
+import 'package:parking_system/screens/reserve_screen.dart';
 import 'package:parking_system/screens/signup_payment.dart';
 import 'package:parking_system/screens/updateInfo_screen.dart';
 import 'package:parking_system/screens/signup_screen.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
-
+import 'utils/constants.dart';
 import 'screens/home_screen.dart';
 import 'screens/map_screen.dart';
 
@@ -46,7 +47,7 @@ class MyApp extends StatelessWidget {
       designSize: const Size(390.0, 845.13),
       builder: () => MaterialApp(
           title: 'Flutter Demo',
-          theme: ThemeData(scaffoldBackgroundColor: const Color(0xFF08051F)),
+          theme: ThemeData(scaffoldBackgroundColor:  kThemeColor),
           //initialRoute: LoginScreen.id,
           home: AnimatedSplashScreen(
             splash: Column(
@@ -55,7 +56,7 @@ class MyApp extends StatelessWidget {
                   const Text('El Sayes App',style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold,color: Colors.white),)
               ],
             ),
-            backgroundColor: Color(0xFF08051F),
+            backgroundColor: kThemeColor,
             splashTransition: SplashTransition.fadeTransition,
             nextScreen: LoginScreen(),
             duration: 2000,
@@ -69,6 +70,7 @@ class MyApp extends StatelessWidget {
             GenerateQRScreen.id: (context) => GenerateQRScreen(),
             EditProfilePage.id: (context) => EditProfilePage(),
             UpdateInfo.id: (context) => UpdateInfo(),
+            ReserveScreen.id: (context) => ReserveScreen(),
 
           }),
     );

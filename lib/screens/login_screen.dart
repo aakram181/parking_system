@@ -83,7 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             final value = await _login(email, password);
                             if (value == true) {
                               snackBar = const SnackBar(
-                                  backgroundColor: Colors.blue,
+                                  backgroundColor: Colors.green,
                                   content: Text("Login Successfully"));
 
                               Navigator.push(context,
@@ -92,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               }));
                             } else {
                               snackBar = const SnackBar(
-                                  backgroundColor: Colors.blue,
+                                  backgroundColor: Colors.red,
                                   content: Text("Incorrect Email or Password"));
                             }
                             ScaffoldMessenger.of(context)
