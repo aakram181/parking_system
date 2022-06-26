@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:parking_system/entities/transactions.dart';
+import 'package:parking_system/entities/history.dart';
 
 TextStyle kListTileStyle = TextStyle(
   fontFamily: 'Cairo',
@@ -10,7 +10,7 @@ TextStyle kListTileStyle = TextStyle(
 );
 
 class TransactionCard extends StatelessWidget {
-  Transaction transaction;
+  History transaction;
 
   TransactionCard({required this.transaction});
 
@@ -40,63 +40,22 @@ class TransactionCard extends StatelessWidget {
                       leading: CircleAvatar(
                           backgroundColor: Colors.green.shade900, radius: 9),
                       title: Text(
-                        transaction.dateTimetoString(
-                            transaction.exitTime, "Exit Time"),
+                        transaction.ExitString(),
                       )),
-                  // Row(
-                  //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  //     crossAxisAlignment: CrossAxisAlignment.center,
-                  //     children: [
-                  //       Column(
-                  //         crossAxisAlignment: CrossAxisAlignment.start,
-                  //         children: [
-                  //           CircleAvatar(
-                  //               backgroundColor: Colors.red.shade900,
-                  //               radius: 9),
-                  //           SizedBox(
-                  //               height: 40,
-                  //               child: VerticalDivider(
-                  //                   color: Colors.grey.shade700)),
-                  //           CircleAvatar(
-                  //               backgroundColor: Colors.green.shade900,
-                  //               radius: 9),
-                  //         ],
-                  //       ),
-                  //       Column(
-                  //         // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  //         crossAxisAlignment: CrossAxisAlignment.start,
-                  //         children: [
-                  //           SizedBox(
-                  //             height: 45,
-                  //             child: Text(
-                  //               transaction.dateTimetoString(
-                  //                   transaction.entryTime, "Entry Time"),
-                  //               style: kListTileStyle,
-                  //             ),
-                  //           ),
-                  //           SizedBox(
-                  //             height: 41,
-                  //             child: Text(
-                  //                 transaction.dateTimetoString(
-                  //                     transaction.exitTime, "Exit Time"),
-                  //                 style: kListTileStyle),
-                  //           ),
-                  //         ],
-                  //       )
-                  //     ]),
                   ListTile(
                     leading: const Icon(Icons.account_balance_wallet_outlined),
-                    title: Text(transaction.fees.toString() + " EGP"),
+                    title: Text(
+                        transaction.fees.roundToDouble().toString() + " EGP"),
                   )
                 ],
               ),
             ),
-            transaction.status == TransactionStatus.complete
+            transaction.status == HistoryStatus.complete
                 ? const SizedBox(
                     width: 60, child: Icon(Icons.check, color: Colors.green))
-                : transaction.status == TransactionStatus.cancelled
+                : transaction.status == HistoryStatus.cancelled
                     ? const SizedBox(width: 60, child: Icon(Icons.cancel))
-                    : transaction.status == TransactionStatus.reserved
+                    : transaction.status == HistoryStatus.reserved
                         ? const SizedBox(width: 60, child: Icon(Icons.cancel))
                         : const SizedBox(
                             child: CircleAvatar(
