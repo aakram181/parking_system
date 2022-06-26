@@ -35,4 +35,23 @@ class UserRepo {
     });
     return username;
   }
+
+  static Future<bool> getReservation(String uid) async{
+    late bool has_reservation;
+    await usersRef.doc(uid).get().then((value){
+      has_reservation = value['has_reservation'];
+    });
+    return has_reservation;
+  }
+
+  static Future<void> setReservation(String uid, bool has_reservation) async{
+    return usersRef
+        .doc(uid)
+        .update({"has_reservation": has_reservation})
+        .then((value) => print("Reservation status updates"))
+        .catchError((error) => print("Failed to update user: $error"));
+  }
+
+
+
 }

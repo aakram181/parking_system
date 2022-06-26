@@ -94,6 +94,10 @@ class _MapPageState extends State<MapPage> {
                     );
 
                   }
+                  if (snapshot.connectionState == ConnectionState.waiting){
+                    return CircularProgressIndicator();
+                  }
+
                 return Text("ERROR"); //TODO ERROR
                 }
               ),
@@ -109,7 +113,6 @@ class _MapPageState extends State<MapPage> {
                   text: 'Reserve',
                   onPressed: () {
                     Navigator.pushNamed(context, ReserveScreen.id, arguments: args);
-
                   }),
             ),
           ],
