@@ -7,6 +7,7 @@ import 'package:parking_system/widgets/transaction_card.dart';
 import 'package:parking_system/utils/constants.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
+import 'package:intl/intl.dart';
 
 class ReserveScreen extends StatefulWidget {
   const ReserveScreen({Key? key}) : super(key: key);
@@ -43,7 +44,6 @@ class _ReserveScreenState extends State<ReserveScreen> {
     });
 
 
-
 //TODO CHANGE CFC TO BE DYNAMIC
     garages_db.snapshots().listen(
           (event) {
@@ -67,9 +67,9 @@ class _ReserveScreenState extends State<ReserveScreen> {
   }
 
 
-
+//TODO USE RESERVATION ENTITY/REPO AND VIEWMODEL
   dynamic reserve_function()async {
-    final uID = await ViewModel.getUser();
+    final user = await ViewModel.getUser();
     final DateTime t = DateTime.now();
     final DateTime arrival_time = t.add(
         Duration(minutes: arrive_in + arrival_slack));
@@ -77,27 +77,102 @@ class _ReserveScreenState extends State<ReserveScreen> {
       'resTime': t,
       'entryTimeMax': arrival_time,
       'garageID': 'cfc',
-      'uID': uID['uID'],
+      'uID': user['uID'],
       'status': 'pending'
     };
     res_db.add(res);
     garages_db.update({'available_spots': FieldValue.increment(-1)});
-    //TODO add to user collection his resverations
+    ViewModel.updateUserReservation(true);
 
   }
 
-
   void updatePopularity(var pop) {
-    print(pop);
     double new_pop = double.parse(pop['cfc']); //TODO get name from prev screen
     now = new DateTime.now().hour;
-    //get next hour
-
     setState(() {
       popularity = new_pop.toInt();
       now = now + 1;
     });
   }
+
+
+
+
+  Future<void> _showConfirmationDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+            title: Text("Confirm your reservation"),
+        content: SingleChildScrollView(
+          child: Column(
+              children:[
+                  Text('You should arrive by'),
+                Text(' '),
+                Text(DateFormat.Hm().format(DateTime.now().add(Duration(minutes: arrive_in))),
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  )),
+                  Text(' '),
+                  Text.rich( TextSpan(
+
+                    text: 'your reservation will be cancelled if you haven\'t arrived after',
+                    children: [
+                      TextSpan(text: ' 10 minutes ', style: TextStyle(fontWeight: FontWeight.bold)),
+                      TextSpan(text: 'after the specified time.'),
+                    ]
+                  ),),
+                ],
+              ),
+              ),
+        actions: [
+        TextButton(
+              child: Text('Confirm'),
+              onPressed:(){
+                  reserve_function();
+                  Navigator.of(context).pop();
+              },
+                ),
+        TextButton(
+              child: Text('Cancel'),
+              onPressed: (){
+              Navigator.of(context).pop();
+              },
+            ),
+        ],
+        );},
+    );
+  }
+
+  Future<void> _showAlertDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Warning"),
+          content: SingleChildScrollView(
+            child: Column(
+              children:[
+                Text('You already have a reservation, check your reservations menu'),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              child: Text('Ok'),
+              onPressed:(){
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );},
+    );
+  }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +191,7 @@ class _ReserveScreenState extends State<ReserveScreen> {
               style: kTitleTextStyle,
             ),
             SizedBox(
-              height: 10.0,
+              height: 20.0,
             ),
             Center(
               child: Container(
@@ -155,7 +230,7 @@ class _ReserveScreenState extends State<ReserveScreen> {
                           ),
                           child: Text('$available_spots slots out of $total_spots are vacant now', //TODO color change dynamic acccording to vacancy
                               style: TextStyle(
-                                color: Colors.green,
+                                color: Colors.blueAccent,
                               )),
                         ),
                         SizedBox(height: 8.0),
@@ -170,7 +245,7 @@ class _ReserveScreenState extends State<ReserveScreen> {
                   )),
             ),
             SizedBox(
-              height: 20.0,
+              height: 50.0,
             ),
             Center(
               child: Text.rich(TextSpan(
@@ -193,8 +268,6 @@ class _ReserveScreenState extends State<ReserveScreen> {
                         )),
                     TextSpan(
                       text: '. Hurry up and reserve!',
-
-
                     )
                   ])),
             ),
@@ -204,7 +277,6 @@ class _ReserveScreenState extends State<ReserveScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children:[
-
                   SleekCircularSlider(
                     appearance: CircularSliderAppearance(
                       size: 320.0,
@@ -246,10 +318,16 @@ class _ReserveScreenState extends State<ReserveScreen> {
 
             Center(child:
             mainButton(
-              //TODO CONFIRM SNACKBAR
-              //TODO USER CAN ONLY HAVE 1 RESERVATION
                 text: has_capacity? 'Confirm' : 'Full Capacity',
-                onPressed: has_capacity? reserve_function : (){},
+                onPressed: ()async{
+                  bool has_reservation = await ViewModel.getUserReservationStatus();
+                  if(has_reservation){
+                    return _showAlertDialog();
+                  }
+                  else if(has_capacity){
+                    return _showConfirmationDialog();
+                  }
+                },
                 color: has_capacity? kButtonColor : Colors.grey
                 )
             ),
@@ -259,3 +337,9 @@ class _ReserveScreenState extends State<ReserveScreen> {
     );
   }
 }
+
+
+
+
+
+

@@ -57,34 +57,41 @@ class _MapPageState extends State<MapPage> {
                 fit: BoxFit.fill,
               )),
               child: StreamBuilder<DatabaseEvent>(
-                  stream: _firestore.onValue.asBroadcastStream(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      var data_x = snapshot.data!.snapshot.value;
-                      List<ParkingCard> parkingWidget = [];
-                      var data_map = data_x as Map<Object?, dynamic>;
-                      var map_keys = data_map.keys.toList()..sort();
-                      for (var k in map_keys) {
-                        final p = ParkingCard(
-                          name: k.toString(),
-                          parkState: ParkingSlots.toState(
-                            data_map[k]!['state'],
-                          ),
-                        );
-                        parkingWidget.add(p);
-                      }
-                      return GridView.count(
-                        padding: EdgeInsets.zero,
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        mainAxisSpacing: 0,
-                        crossAxisSpacing: 110,
-                        crossAxisCount: 2,
-                        children: parkingWidget,
-                      );
-                    }
-                    return Text("ERROR"); //TODO ERROR
-                  }),
+
+                stream: _firestore.onValue.asBroadcastStream(),
+                builder: (context,snapshot){
+                  if(snapshot.hasData){
+                  var data_x = snapshot.data!.snapshot.value;
+                  List<ParkingCard> parkingWidget = [];
+                  var data_map = data_x as Map<Object?,dynamic>;
+                  var map_keys = data_map.keys.toList()..sort();
+                  print(map_keys);
+                  for(var k in map_keys){
+                    final p = ParkingCard(
+                      name:k.toString(),
+                      parkState: ParkingSlots.toState(data_map[k]!['state'],
+                    ), );
+                    parkingWidget.add(p);
+                  }
+                    return GridView.count(
+                      padding: EdgeInsets.zero,
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      mainAxisSpacing: 0,
+                      crossAxisSpacing: 110,
+                      crossAxisCount: 2,
+                      children: parkingWidget,
+                    );
+
+                  }
+                  if (snapshot.connectionState == ConnectionState.waiting){
+                    return CircularProgressIndicator();
+                  }
+
+                return Text("ERROR"); //TODO ERROR
+                }
+              ),
+
             ),
             SizedBox(
               height: 30.0,
@@ -93,8 +100,9 @@ class _MapPageState extends State<MapPage> {
               child: mainButton(
                   text: 'Reserve',
                   onPressed: () {
-                    Navigator.pushNamed(context, ReserveScreen.id,
-                        arguments: args);
+
+                    Navigator.pushNamed(context, ReserveScreen.id, arguments: args);
+
                   }),
             ),
           ],

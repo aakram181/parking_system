@@ -47,10 +47,33 @@ class ViewModel {
     }
   }
 
+
   static Future<List<History>> getTransactions() async {
     late String uID;
     await ViewModel.getUser().then((value) => uID = value['uID']);
     var transactions = HistoryRepo(uID).getTransactions();
     return transactions;
   }
+
+  static void updateUserReservation(bool has_reservation) async{
+    var uID = AuthRepo.currentUid();
+    if (uID != null) {
+      UserRepo.setReservation(uID, has_reservation);
+    }
+  }
+
+  static Future<bool> getUserReservationStatus() async{
+    var uID = AuthRepo.currentUid();
+    if (uID != null) {
+      return UserRepo.getReservation(uID);
+    }
+    return false;
+  }
+
+
+
+
+
+
+
 }
