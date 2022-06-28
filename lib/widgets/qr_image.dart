@@ -17,7 +17,7 @@ class _QImageState extends State<QImage> {
     String data = '';
     String uID = AuthRepo.currentUid();
     // stream timer to change date every minute
-    Stream<String> timer = Stream.periodic(const Duration(seconds: 5), (i) {
+    Stream<String> timer = Stream.periodic(const Duration(seconds: 3), (i) {
       DateTime dateTime = (DateTime.now());
       dateTime = dateTime.add(const Duration(seconds: 5));
       var timeStamp = dateFormat.format(dateTime);

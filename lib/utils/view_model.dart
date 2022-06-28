@@ -1,7 +1,9 @@
 import 'package:parking_system/entities/car.dart';
+import 'package:parking_system/entities/history.dart';
 import 'package:parking_system/entities/user.dart';
 import 'package:parking_system/repository/auth_repo.dart';
 import 'package:parking_system/repository/car_repo.dart';
+import 'package:parking_system/repository/history_repo.dart';
 import 'package:parking_system/repository/user_repo.dart';
 
 class ViewModel {
@@ -35,14 +37,22 @@ class ViewModel {
     });
   }
 
-  static void updateInfo(String email,String password, String username) async {
+  static void updateInfo(String email, String password, String username) async {
     var uID = AuthRepo.currentUid();
     if (uID != null) {
-        User user = User(uid: uID, email: email, username: username);
-        UserRepo.UpdateUser(user);
-        AuthRepo.changeEmail(email);
-        AuthRepo.changePassword(password);
-      }
+      User user = User(uid: uID, email: email, username: username);
+      UserRepo.UpdateUser(user);
+      AuthRepo.changeEmail(email);
+      AuthRepo.changePassword(password);
+    }
+  }
+
+
+  static Future<List<History>> getTransactions() async {
+    late String uID;
+    await ViewModel.getUser().then((value) => uID = value['uID']);
+    var transactions = HistoryRepo(uID).getTransactions();
+    return transactions;
   }
 
   static void updateUserReservation(bool has_reservation) async{
@@ -59,6 +69,7 @@ class ViewModel {
     }
     return false;
   }
+
 
 
 
