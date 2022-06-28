@@ -18,7 +18,7 @@ class ReserveScreen extends StatefulWidget {
 }
 
 class _ReserveScreenState extends State<ReserveScreen> {
-  int popularity = 1;
+  double popularity = 1.0;
   var now = 0;
   int available_spots =0;
   int total_spots = 0;
@@ -90,7 +90,10 @@ class _ReserveScreenState extends State<ReserveScreen> {
     double new_pop = double.parse(pop['cfc']); //TODO get name from prev screen
     now = new DateTime.now().hour;
     setState(() {
-      popularity = new_pop.toInt();
+      print(new_pop);
+
+      popularity = new_pop;
+      print(popularity);
       now = now + 1;
     });
   }
@@ -253,7 +256,7 @@ class _ReserveScreenState extends State<ReserveScreen> {
                   style: kSubTitleTextStyle.copyWith(height:1.2),
                   children: [
                     TextSpan(
-                        text: ((1-popularity) * total_spots).toString(),
+                        text: ((1.0-popularity) * total_spots).toInt().toString(),
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           decoration: TextDecoration.underline,
@@ -320,6 +323,7 @@ class _ReserveScreenState extends State<ReserveScreen> {
             mainButton(
                 text: has_capacity? 'Confirm' : 'Full Capacity',
                 onPressed: ()async{
+                  print(popularity);
                   bool has_reservation = await ViewModel.getUserReservationStatus();
                   if(has_reservation){
                     return _showAlertDialog();
