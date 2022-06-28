@@ -15,16 +15,20 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final List<String> imageList = [
-    'images/newcairo.png',
-    'images/downtown.jpg',
+    'images/cfc.jpg',
+    'images/almazah.jpg',
     'images/maadi.jpg',
-    'images/opera_square.jpg',
+    'images/Mall of Arabia Cairo.jpg',
+    'images/waterway.jpg',
+    'images/serag.jpg',
   ];
   final List<String> descriptionList = [
     "Cairo Festival City",
-    "Downtown Cairo",
+    "Almazah",
     "Al Maadi",
-    "Opera square",
+    "Mall of Arabia",
+    "Seoudi Waterway",
+    "Serag Mall",
   ];
 
   @override

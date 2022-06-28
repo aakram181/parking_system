@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:parking_system/entities/transactions.dart';
+import 'package:parking_system/entities/history.dart';
+import 'package:parking_system/utils/view_model.dart';
 import 'package:parking_system/widgets/transaction_card.dart';
 
 class HistoryScreen extends StatefulWidget {
@@ -13,19 +14,7 @@ class HistoryScreen extends StatefulWidget {
 
 class _HistoryScreenState extends State<HistoryScreen> {
   // Create a list of transaction history
-  List<Transaction> history = <Transaction>[
-    Transaction.entry(uID: "1", gTitle: "Maadi", entryTime: DateTime.now()),
-    Transaction.reserve(uID: "2", gTitle: "Opera"),
-    Transaction.entry(
-        uID: "2", gTitle: "Maadi", entryTime: DateTime(2022, 4, 1, 10, 33, 40)),
-    Transaction(
-        uID: '2',
-        gTitle: 'Zamalek',
-        entryTime: DateTime(2022, 4, 1, 10, 33, 40),
-        exitTime: DateTime.now(),
-        fees: 5,
-        status: TransactionStatus.complete)
-  ];
+  late List<History> _history;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,11 +26,26 @@ class _HistoryScreenState extends State<HistoryScreen> {
           "Your history ",
         ),
       ),
-      body: ListView.builder(
-          padding: const EdgeInsets.all(8),
-          itemCount: history.length,
-          itemBuilder: (BuildContext context, int index) {
-            return TransactionCard(transaction: history[index]);
+      body: FutureBuilder(
+          future: ViewModel.getTransactions(),
+          builder:
+              (BuildContext context, AsyncSnapshot<List<History>> snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.none:
+              case ConnectionState.waiting:
+                return const Center(child: CircularProgressIndicator());
+              default:
+                if (snapshot.hasError) {
+                  throw Exception("An Error Occurred");
+                }
+            }
+            _history = snapshot.data!;
+            return ListView.builder(
+                padding: const EdgeInsets.all(8),
+                itemCount: _history.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return TransactionCard(transaction: _history[index]);
+                });
           }),
     );
   }

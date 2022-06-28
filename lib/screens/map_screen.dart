@@ -1,10 +1,10 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:parking_system/entities/parking_slots.dart';
 import 'package:parking_system/screens/reserve_screen.dart';
 import 'package:parking_system/utils/constants.dart';
 import 'package:parking_system/widgets/main_button.dart';
 import 'package:parking_system/widgets/parking_card.dart';
-import 'package:firebase_database/firebase_database.dart';
 
 class MapPage extends StatefulWidget {
   static const String id = 'map_screen';
@@ -13,28 +13,17 @@ class MapPage extends StatefulWidget {
   _MapPageState createState() => _MapPageState();
 }
 
-
 class _MapPageState extends State<MapPage> {
-
-
   final _firestore = FirebaseDatabase.instance.ref("Parking_slots");
 
-@override
-
-
-
+  @override
   @override
   Widget build(BuildContext context) {
-  final args = ModalRoute.of(context)!.settings.arguments;
+    final args = ModalRoute.of(context)!.settings.arguments;
 
-
-
-
-
-
-  return Scaffold(
+    return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(16.0,60.0,16.0,0),
+        padding: const EdgeInsets.fromLTRB(16.0, 60.0, 16.0, 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -44,7 +33,7 @@ class _MapPageState extends State<MapPage> {
               style: kTitleTextStyle,
             ),
             SizedBox(
-              height:5.0,
+              height: 5.0,
             ),
             Row(
               children: [
@@ -59,7 +48,7 @@ class _MapPageState extends State<MapPage> {
               ],
             ),
             SizedBox(
-              height:20.0,
+              height: 20.0,
             ),
             Container(
               decoration: const BoxDecoration(
@@ -68,6 +57,7 @@ class _MapPageState extends State<MapPage> {
                 fit: BoxFit.fill,
               )),
               child: StreamBuilder<DatabaseEvent>(
+
                 stream: _firestore.onValue.asBroadcastStream(),
                 builder: (context,snapshot){
                   if(snapshot.hasData){
@@ -101,18 +91,18 @@ class _MapPageState extends State<MapPage> {
                 return Text("ERROR"); //TODO ERROR
                 }
               ),
-            ),
 
+            ),
             SizedBox(
               height: 30.0,
             ),
-
-
             Center(
               child: mainButton(
                   text: 'Reserve',
                   onPressed: () {
+
                     Navigator.pushNamed(context, ReserveScreen.id, arguments: args);
+
                   }),
             ),
           ],
